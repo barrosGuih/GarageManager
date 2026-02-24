@@ -26,7 +26,8 @@ public class ProdutoController{
     public Produto addProduto(@RequestBody Map<String, Object> body) {
         String nome = (String) body.get("nome");
         int quantidade = (int) body.get("quantidade");
-        return estoqueService.adicionarProduto(nome,quantidade);
+        int valor = (int) body.get("valor");
+        return estoqueService.adicionarProduto(nome,quantidade, valor);
     }
 
     @GetMapping

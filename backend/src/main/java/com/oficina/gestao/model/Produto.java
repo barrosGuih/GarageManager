@@ -1,6 +1,9 @@
 package com.oficina.gestao.model;
 
 import jakarta.persistence.Id;
+
+import javax.swing.event.InternalFrameAdapter;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +18,7 @@ public class Produto {
 
     private String nome;
     private Integer quantidade;
+    private Integer valor;
 
     public Long getId(){
         return id;
@@ -30,6 +34,14 @@ public class Produto {
 
     public Integer getQuantidade(){
         return quantidade;
+    }
+
+    public Integer getValor(){
+        return valor;
+    }
+
+    public void setValor(Integer valor){
+        this.valor = valor;
     }
 
     public void setQuantidade(Integer quantidade){

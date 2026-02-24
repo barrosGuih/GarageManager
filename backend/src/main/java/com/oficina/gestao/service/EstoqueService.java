@@ -18,45 +18,60 @@ public class EstoqueService {
     @Autowired
     private MovimentacaoRepository movimentacaoRepository;
 
-    public Produto adicionarProduto(String nome, int quantidade) {
+    public Produto adicionarProduto(String nome, int quantidade, int valor) {
         Produto p = new Produto();
         p.setNome(nome);
         p.setQuantidade(quantidade);
+        p.setValor(valor);
+        ;
         return produtoRepository.save(p);
     }
 
-    public void entradaProduto(int produtoId, int quantidade) {
-        Produto p = produtoRepository.findById(produtoId)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
-        
-        // CORREÇÃO AQUI: Estava p.getQuantidade(p.getQuantidade() + quantidade)
-        p.setQuantidade(p.getQuantidade() + quantidade); 
-        produtoRepository.save(p);
+    public void entradaProduto(int produtoId, int quantidade, int produtoValor, String descricao) {
 
-        Movimentacao m = new Movimentacao();
-        m.setProdutoId(produtoId);
-        m.setQuantidade(quantidade);
-        m.setTipo("Entrada");
-        movimentacaoRepository.save(m);
-    }
-
-    public void saidaProduto(int produtoId, int quantidade) {
-        Produto p = produtoRepository.findById(produtoId)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
-        
-        if (p.getQuantidade() < quantidade) {
-            throw new RuntimeException("Estoque insuficiente");
+        if (produtoId > 0) {
+            Produto p = produtoRepository.findById(produtoId)
+                    .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+            p.setQuantidade(p.getQuantidade() + quantidade);
+            produtoRepository.save(p);
         }
-        
-        p.setQuantidade(p.getQuantidade() - quantidade);
-        produtoRepository.save(p);
+
+        // Salva a movimentação
+        Movimentacao m = new Movimentacao();
+        m.setProdutoId(produtoId);
+        m.setQuantidade(quantidade);
+        m.setProdutoValor(produtoValor);
+        m.setTipo("ENTRADA");
+        m.setDescricao(descricao);
+        movimentacaoRepository.save(m);
+    }
+
+    public void saidaProduto(int produtoId, int quantidade, int produtoValor, String descricao) {
+
+        if (produtoId > 0) {
+            Produto p = produtoRepository.findById(produtoId)
+                    .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+            if (p.getQuantidade() < quantidade) {
+                throw new RuntimeException("Estoque insuficiente");
+            }
+
+            p.setQuantidade(p.getQuantidade() - quantidade);
+            produtoRepository.save(p);
+        }
 
         Movimentacao m = new Movimentacao();
         m.setProdutoId(produtoId);
         m.setQuantidade(quantidade);
-        m.setTipo("Saida");
+        m.setProdutoValor(produtoValor);
+        m.setTipo("SAIDA");
+        m.setDescricao(descricao);
         movimentacaoRepository.save(m);
     }
+
+    public void excluirMovimentacao(Long id) {
+    movimentacaoRepository.deleteById(id);
+}
 
     public List<Produto> listarProdutos() {
         return produtoRepository.findAll();

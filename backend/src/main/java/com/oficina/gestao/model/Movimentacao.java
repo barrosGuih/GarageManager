@@ -20,6 +20,8 @@ public class Movimentacao{
     private Integer produtoId;
     private Integer quantidade;
     private String tipo;
+    private Integer produtoValor;
+    private String descricao;
     private LocalDateTime dataHora;
 
     @PrePersist
@@ -49,12 +51,28 @@ public class Movimentacao{
         this.quantidade = quantidade;
     }
 
+    public String getDescricao(){
+        return descricao;
+    }
+
+    public void setDescricao(String descricao){
+        this.descricao = descricao;
+    }
+
     public String getTipo(){
         return tipo;
     }
 
     public void setTipo(String tipo){
         this.tipo = tipo;
+    }
+
+    public Integer getProdutoValor(){
+        return produtoValor;
+    }
+
+    public void setProdutoValor(Integer produtoValor){
+        this.produtoValor = produtoValor;
     }
 
     public LocalDateTime getDataHora(){
