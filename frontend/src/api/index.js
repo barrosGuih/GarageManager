@@ -45,6 +45,13 @@ export async function saidaProduto(produtoId, quantidade, produtoValor, descrica
   return handleResponse(res);
 }
 
+export async function excluirProduto(id) {
+  const res = await fetch(`${API_URL}/produtos/${id}`, {
+    method: "DELETE"
+  });
+  return handleResponse(res);
+}
+
 export async function listarMovimentacoes() {
   const res = await fetch(`${API_URL}/movimentacoes`);
   return handleResponse(res);

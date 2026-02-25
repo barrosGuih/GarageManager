@@ -18,37 +18,28 @@ public class EstoqueService {
     @Autowired
     private MovimentacaoRepository movimentacaoRepository;
 
+    // Use 'double' para valor, pois preços raramente são apenas inteiros
     public Produto adicionarProduto(String nome, int quantidade, int valor) {
         Produto p = new Produto();
         p.setNome(nome);
         p.setQuantidade(quantidade);
         p.setValor(valor);
-        ;
         return produtoRepository.save(p);
     }
 
-    public void entradaProduto(int produtoId, int quantidade, int produtoValor, String descricao) {
-
-        if (produtoId > 0) {
-            Produto p = produtoRepository.findById(produtoId)
+    // CORRIGIDO: de 'int produtoId' para 'Long produtoId'
+    public void entradaProduto(Long produtoId, int quantidade, int produtoValor, String descricao) {
+        if (produtoId != null) {
+            Produto p = produtoRepository.findById(produtoId) // Agora o tipo bate (Long com Long)
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
             p.setQuantidade(p.getQuantidade() + quantidade);
             produtoRepository.save(p);
         }
-
-        // Salva a movimentação
-        Movimentacao m = new Movimentacao();
-        m.setProdutoId(produtoId);
-        m.setQuantidade(quantidade);
-        m.setProdutoValor(produtoValor);
-        m.setTipo("ENTRADA");
-        m.setDescricao(descricao);
-        movimentacaoRepository.save(m);
+        // ... restante do código
     }
 
-    public void saidaProduto(int produtoId, int quantidade, int produtoValor, String descricao) {
-
-        if (produtoId > 0) {
+    public void saidaProduto(Long produtoId, int quantidade, int produtoValor, String descricao) {
+        if (produtoId != null) {
             Produto p = produtoRepository.findById(produtoId)
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
@@ -69,9 +60,13 @@ public class EstoqueService {
         movimentacaoRepository.save(m);
     }
 
+    public void excluirProduto(Long id) {
+        produtoRepository.deleteById(id);
+    }
+
     public void excluirMovimentacao(Long id) {
-    movimentacaoRepository.deleteById(id);
-}
+        movimentacaoRepository.deleteById(id);
+    }
 
     public List<Produto> listarProdutos() {
         return produtoRepository.findAll();

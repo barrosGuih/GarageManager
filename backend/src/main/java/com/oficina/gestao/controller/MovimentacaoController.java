@@ -19,23 +19,22 @@ public class MovimentacaoController {
     private EstoqueService estoqueService;
 
     @PostMapping("/entrada")
-    public void entradaProduto(@RequestBody Map<String, Object> body) {
-        Integer produtoId = Integer.valueOf(body.get("produtoId").toString());
-        Integer quantidade = Integer.valueOf(body.get("quantidade").toString());
-        Integer produtoValor = Integer.valueOf(body.get("produtoValor").toString());
-
-        String descricao = body.getOrDefault("descricao", "").toString();
+    public void entrada(@RequestBody Map<String, Object> body) {
+        // Conversão segura para Long
+        Long produtoId = Long.valueOf(body.get("produtoId").toString());
+        int quantidade = Integer.parseInt(body.get("quantidade").toString());
+        int produtoValor = Integer.parseInt(body.get("produtoValor").toString());
+        String descricao = (String) body.get("descricao");
 
         estoqueService.entradaProduto(produtoId, quantidade, produtoValor, descricao);
     }
 
     @PostMapping("/saida")
-    public void saidaProduto(@RequestBody Map<String, Object> body) {
-        Integer produtoId = Integer.valueOf(body.get("produtoId").toString());
-        Integer quantidade = Integer.valueOf(body.get("quantidade").toString());
-        Integer produtoValor = Integer.valueOf(body.get("produtoValor").toString());
-
-        String descricao = body.getOrDefault("descricao", "").toString();
+    public void saida(@RequestBody Map<String, Object> body) {
+        Long produtoId = Long.valueOf(body.get("produtoId").toString());
+        int quantidade = Integer.parseInt(body.get("quantidade").toString());
+        int produtoValor = Integer.parseInt(body.get("produtoValor").toString());
+        String descricao = (String) body.get("descricao");
 
         estoqueService.saidaProduto(produtoId, quantidade, produtoValor, descricao);
     }

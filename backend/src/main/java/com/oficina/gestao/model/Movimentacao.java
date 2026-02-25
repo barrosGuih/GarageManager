@@ -17,7 +17,7 @@ public class Movimentacao{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer produtoId;
+    private Long produtoId;
     private Integer quantidade;
     private String tipo;
     private Integer produtoValor;
@@ -35,11 +35,11 @@ public class Movimentacao{
         return id;
     }
 
-    public Integer getProdutoId(){
+    public Long getProdutoId(){
         return produtoId;
     }
 
-    public void setProdutoId(Integer produtoId){
+    public void setProdutoId(Long produtoId){
         this.produtoId = produtoId;
     }
 

@@ -6,4 +6,4 @@ import com.oficina.gestao.service.EstoqueService;
 import com.oficina.gestao.model.Produto;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Integer> {}
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {}
