@@ -8,7 +8,7 @@ export default function Produtos() {
   const [filtro, setFiltro] = useState('');
   
   // Estado do formulário
-  const [formData, setFormData] = useState({ nome: '', quantidade: '', preco: '' });
+  const [formData, setFormData] = useState({ nome: '', quantidade: '', valor: '' });
 
   useEffect(() => {
     carregarProdutos();
@@ -27,9 +27,9 @@ export default function Produtos() {
       await adicionarProduto({
         nome: formData.nome,
         quantidade: Number(formData.quantidade),
-        preco: Number(formData.preco) // Verifique se seu Java aceita preço
+        valor: Number(formData.valor) // Verifique se seu Java aceita preço
       });
-      setFormData({ nome: '', quantidade: '', preco: '' });
+      setFormData({ nome: '', quantidade: '', valor: '' });
       setIsModalOpen(false);
       carregarProdutos();
     } catch (err) { alert("Erro ao salvar!"); }
@@ -161,8 +161,8 @@ export default function Produtos() {
                     step="0.01"
                     className="w-full border border-slate-200 p-3 rounded-xl outline-none"
                     placeholder="R$ 0,00"
-                    value={formData.preco}
-                    onChange={e => setFormData({...formData, preco: e.target.value})}
+                    value={formData.valor}
+                    onChange={e => setFormData({...formData, valor: e.target.value})}
                   />
                 </div>
               </div>
