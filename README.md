@@ -1,5 +1,13 @@
 # 🔧 GarageManager - Gestão de Oficina Mecânica
 
+<div align="center">
+<img src="https://img.shields.io/badge/Java-000000?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
+ <img src="https://img.shields.io/badge/SpringBoot-000000?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
+<img src="https://img.shields.io/badge/MySQL-000000?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+ <img src="https://img.shields.io/badge/React-000000?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+</div>
+<br />
+
 O **GarageManager** é um ecossistema completo para a administração de oficinas mecânicas. Este projeto foi desenvolvido para resolver necessidades reais que identifiquei no meu dia a dia de trabalho em uma oficina, transformando processos manuais e desorganizados em uma gestão digital fluida.
 
 > **Link do Repositório:** [github.com/barrosGuih/GarageManager](https://github.com/barrosGuih/GarageManager)
